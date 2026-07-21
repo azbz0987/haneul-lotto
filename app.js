@@ -206,6 +206,21 @@
       });
   }
 
+  const TAB_STICKERS = {
+    real: "img/together1-sticker.png",
+    stat: "img/ekdms-sticker.png",
+  };
+
+  function showTabSticker(target) {
+    const src = TAB_STICKERS[target];
+    if (!src) return;
+    const sticker = document.getElementById("popSticker");
+    sticker.querySelector(".sticker-img").src = src;
+    sticker.classList.remove("pop");
+    void sticker.offsetWidth; // 애니메이션 재시작을 위한 강제 리플로우
+    sticker.classList.add("pop");
+  }
+
   function init() {
     refreshDerivedUI();
 
@@ -223,12 +238,7 @@
           panel.hidden = panel.dataset.panel !== target;
         });
 
-        if (target === "stat") {
-          const sticker = document.getElementById("statSticker");
-          sticker.classList.remove("pop");
-          void sticker.offsetWidth; // 애니메이션 재시작을 위한 강제 리플로우
-          sticker.classList.add("pop");
-        }
+        showTabSticker(target);
       });
     });
 
