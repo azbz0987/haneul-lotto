@@ -188,6 +188,7 @@ main {
 .game-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 10px 4px;
 }
@@ -206,8 +207,7 @@ main {
   flex-wrap: nowrap;
   align-items: center;
   gap: 5px;
-  flex: 1;
-  min-width: 0;
+  flex: none;
 }
 
 .ball {
