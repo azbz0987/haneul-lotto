@@ -67,6 +67,29 @@
     return ball;
   }
 
+  function appendGameRow(list, label, main, bonus) {
+    const item = document.createElement("div");
+    item.className = "game-row";
+
+    const labelEl = document.createElement("div");
+    labelEl.className = "game-label";
+    labelEl.textContent = label;
+    item.appendChild(labelEl);
+
+    const balls = document.createElement("div");
+    balls.className = "balls";
+    main.forEach((n) => balls.appendChild(makeBall(n)));
+
+    const sep = document.createElement("span");
+    sep.className = "ball-sep";
+    sep.textContent = "+";
+    balls.appendChild(sep);
+    balls.appendChild(makeBall(bonus));
+
+    item.appendChild(balls);
+    list.appendChild(item);
+  }
+
   function renderRealGames(draws) {
     const list = document.getElementById("realGameList");
     list.innerHTML = "";
@@ -75,29 +98,7 @@
       .sort((a, b) => a[0] - b[0])
       .forEach((row) => {
         const [drawNo, ...rest] = row;
-        const nums = rest.slice(0, 6);
-        const bonus = rest[6];
-
-        const item = document.createElement("div");
-        item.className = "game-row";
-
-        const label = document.createElement("div");
-        label.className = "game-label";
-        label.textContent = drawNo + "회";
-        item.appendChild(label);
-
-        const balls = document.createElement("div");
-        balls.className = "balls";
-        nums.forEach((n) => balls.appendChild(makeBall(n)));
-
-        const sep = document.createElement("span");
-        sep.className = "ball-sep";
-        sep.textContent = "+";
-        balls.appendChild(sep);
-        balls.appendChild(makeBall(bonus));
-
-        item.appendChild(balls);
-        list.appendChild(item);
+        appendGameRow(list, drawNo + "회", rest.slice(0, 6), rest[6]);
       });
   }
 
@@ -105,26 +106,7 @@
     const list = document.getElementById("statGameList");
     list.innerHTML = "";
     games.forEach(({ main, bonus }, i) => {
-      const item = document.createElement("div");
-      item.className = "game-row";
-
-      const label = document.createElement("div");
-      label.className = "game-label";
-      label.textContent = STAT_GAME_LABELS[i] || i + 1;
-      item.appendChild(label);
-
-      const balls = document.createElement("div");
-      balls.className = "balls";
-      main.forEach((n) => balls.appendChild(makeBall(n)));
-
-      const sep = document.createElement("span");
-      sep.className = "ball-sep";
-      sep.textContent = "+";
-      balls.appendChild(sep);
-      balls.appendChild(makeBall(bonus));
-
-      item.appendChild(balls);
-      list.appendChild(item);
+      appendGameRow(list, STAT_GAME_LABELS[i] || i + 1, main, bonus);
     });
   }
 
