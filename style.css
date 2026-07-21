@@ -300,11 +300,12 @@ footer p {
   top: 16%;
   left: 50%;
   width: 150px;
-  height: 150px;
-  padding: 7px;
+  height: 170px;
+  padding: 6px;
   background: #fff;
-  clip-path: url(#heartClip);
-  filter: drop-shadow(0 10px 20px rgba(28, 34, 48, 0.35));
+  border: 4px solid var(--ball-2);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(28, 34, 48, 0.3);
   z-index: 100;
   pointer-events: none;
   opacity: 0;
@@ -316,7 +317,7 @@ footer p {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  clip-path: url(#heartClip);
+  border-radius: 10px;
 }
 
 .sticker.pop {
