@@ -211,11 +211,25 @@
     stat: "img/ekdms-sticker.png",
   };
 
-  function showTabSticker(target) {
+  function showTabSticker(target, buttonEl) {
     const src = TAB_STICKERS[target];
     if (!src) return;
     const sticker = document.getElementById("popSticker");
     sticker.querySelector(".sticker-img").src = src;
+
+    const rect = buttonEl.getBoundingClientRect();
+    const width = sticker.offsetWidth;
+    const height = sticker.offsetHeight;
+    const margin = 8;
+    const gapAboveButton = 24; // 말풍선 꼬리 + 여백 공간
+
+    let left = rect.left + rect.width / 2 - width / 2;
+    left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
+    const top = rect.top - height - gapAboveButton;
+
+    sticker.style.left = Math.round(left) + "px";
+    sticker.style.top = Math.round(top) + "px";
+
     sticker.classList.remove("pop");
     void sticker.offsetWidth; // 애니메이션 재시작을 위한 강제 리플로우
     sticker.classList.add("pop");
@@ -238,7 +252,7 @@
           panel.hidden = panel.dataset.panel !== target;
         });
 
-        showTabSticker(target);
+        showTabSticker(target, btn);
       });
     });
 
