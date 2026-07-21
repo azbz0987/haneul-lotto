@@ -28,15 +28,16 @@
     return [...idxs].map((i) => draws[i]);
   }
 
-  // 가중치 기반 비복원추출: 가중치가 높은 번호일수록 더 자주 뽑히되, 항상 6개 서로 다른 번호 보장
-  function weightedPickSix(freq) {
+  // 가중치 기반 비복원추출: 가중치가 높은 번호일수록 더 자주 뽑히되, 항상 서로 다른 번호 보장
+  function weightedPick(freq, count, exclude) {
     const pool = [];
     for (let n = 1; n <= 45; n++) {
+      if (exclude && exclude.has(n)) continue;
       pool.push({ n, w: freq[n] + 1 }); // +1로 최소 가중치 보장(0회 번호도 뽑힐 수 있게)
     }
 
     const picked = [];
-    for (let k = 0; k < 6; k++) {
+    for (let k = 0; k < count; k++) {
       const total = pool.reduce((sum, item) => sum + item.w, 0);
       let r = Math.random() * total;
       let idx = 0;
@@ -48,7 +49,7 @@
       picked.push(pool[idx].n);
       pool.splice(idx, 1);
     }
-    return picked.sort((a, b) => a - b);
+    return picked;
   }
 
   function ballClass(n) {
@@ -103,7 +104,7 @@
   function renderStatGames(games) {
     const list = document.getElementById("statGameList");
     list.innerHTML = "";
-    games.forEach((nums, i) => {
+    games.forEach(({ main, bonus }, i) => {
       const item = document.createElement("div");
       item.className = "game-row";
 
@@ -114,9 +115,15 @@
 
       const balls = document.createElement("div");
       balls.className = "balls";
-      nums.forEach((n) => balls.appendChild(makeBall(n)));
-      item.appendChild(balls);
+      main.forEach((n) => balls.appendChild(makeBall(n)));
 
+      const sep = document.createElement("span");
+      sep.className = "ball-sep";
+      sep.textContent = "+";
+      balls.appendChild(sep);
+      balls.appendChild(makeBall(bonus));
+
+      item.appendChild(balls);
       list.appendChild(item);
     });
   }
@@ -131,11 +138,12 @@
     const games = [];
     const seen = new Set();
     while (games.length < GAMES_PER_PICK) {
-      const g = weightedPickSix(state.freq);
-      const key = g.join(",");
+      const main = weightedPick(state.freq, 6).sort((a, b) => a - b);
+      const key = main.join(",");
       if (seen.has(key)) continue; // 5게임끼리는 서로 겹치지 않게
       seen.add(key);
-      games.push(g);
+      const bonus = weightedPick(state.freq, 1, new Set(main))[0];
+      games.push({ main, bonus });
     }
     renderStatGames(games);
     document.getElementById("statResults").hidden = false;
