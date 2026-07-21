@@ -206,16 +206,21 @@
       });
   }
 
+  const STICKER_AREA = 150 * 150; // 하트 크기가 대략 비슷한 '무게감'을 갖도록 하는 기준 면적
   const TAB_STICKERS = {
-    real: "img/together1-sticker.png",
-    stat: "img/ekdms-sticker.png",
+    real: { src: "img/together1-sticker.png", ratio: 300 / 263 },
+    stat: { src: "img/ekdms-sticker.png", ratio: 260 / 534 },
   };
 
   function showTabSticker(target) {
-    const src = TAB_STICKERS[target];
-    if (!src) return;
+    const info = TAB_STICKERS[target];
+    if (!info) return;
     const sticker = document.getElementById("popSticker");
-    sticker.querySelector(".sticker-img").src = src;
+    const width = Math.round(Math.sqrt(STICKER_AREA * info.ratio));
+    const height = Math.round(Math.sqrt(STICKER_AREA / info.ratio));
+    sticker.style.width = width + "px";
+    sticker.style.height = height + "px";
+    sticker.querySelector(".sticker-img").src = info.src;
     sticker.classList.remove("pop");
     void sticker.offsetWidth; // 애니메이션 재시작을 위한 강제 리플로우
     sticker.classList.add("pop");
