@@ -296,7 +296,7 @@ footer p {
 }
 
 .sticker {
-  position: fixed;
+  position: absolute;
   width: 130px;
   height: 150px;
   padding: 6px;

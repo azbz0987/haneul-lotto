@@ -227,8 +227,9 @@
     left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
     const top = rect.top - height - gapAboveButton;
 
-    sticker.style.left = Math.round(left) + "px";
-    sticker.style.top = Math.round(top) + "px";
+    // position:absolute이므로 스크롤 위치를 더해 문서 기준 좌표로 변환
+    sticker.style.left = Math.round(left + window.scrollX) + "px";
+    sticker.style.top = Math.round(top + window.scrollY) + "px";
 
     sticker.classList.remove("pop");
     void sticker.offsetWidth; // 애니메이션 재시작을 위한 강제 리플로우
