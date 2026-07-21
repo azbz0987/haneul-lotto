@@ -195,7 +195,7 @@
         state.draws = draws;
         refreshDerivedUI();
         const last = draws[draws.length - 1];
-        setSyncStatus(last[0] + "회차까지 실시간 반영됨", "live");
+        setSyncStatus(last[0] + "회차까지 실시간 반영", "live");
       })
       .catch(() => {
         const last = state.draws[state.draws.length - 1];
