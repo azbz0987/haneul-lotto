@@ -222,6 +222,13 @@
         document.querySelectorAll(".tab-panel").forEach((panel) => {
           panel.hidden = panel.dataset.panel !== target;
         });
+
+        if (target === "stat") {
+          const sticker = document.getElementById("statSticker");
+          sticker.classList.remove("pop");
+          void sticker.offsetWidth; // 애니메이션 재시작을 위한 강제 리플로우
+          sticker.classList.add("pop");
+        }
       });
     });
 
