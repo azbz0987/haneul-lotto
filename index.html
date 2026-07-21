@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>구하늘님 위한 로또 추천</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">남편 전용 ❤️</p>
+      <h1>구하늘💙<br>인생역전 드가자~</h1>
+      <p class="desc">
+        1회차부터 <strong id="totalDraws">-</strong>회차까지<br>
+        역대 1등 당첨번호 모두 분석완료!
+      </p>
+      <p class="sync-status" id="syncStatus">최신 데이터 확인 중...</p>
+    </header>
+
+    <main>
+      <section class="generator card">
+        <div class="tabs" role="tablist">
+          <button class="tab-btn active" data-tab="real" role="tab" aria-selected="true">1등 당첨 번호💰</button>
+          <button class="tab-btn" data-tab="stat" role="tab" aria-selected="false">다은이의 추천 번호🍀</button>
+        </div>
+
+        <div class="tab-panel" data-panel="real">
+          <button id="generateRealBtn" class="btn-primary">
+            <span>추천번호 받기</span>
+          </button>
+          <!-- <p class="hint">누를 때마다 실제 1등 당첨 회차 중 5개를 랜덤으로 보여줘요</p> -->
+
+          <div id="realResults" class="results" hidden>
+            <div id="realGameList" class="game-list"></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel="stat" hidden>
+          <button id="generateStatBtn" class="btn-primary">
+            <span>추천번호 받기</span>
+          </button>
+          <!-- <p class="hint">역대 1등에 자주 나온 번호일수록 더 자주 뽑히게 골라줘요</p> -->
+
+          <div id="statResults" class="results" hidden>
+            <div id="statGameList" class="game-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="insight card">
+        <h2>역대 1등, 가장 많이 나온 번호</h2>
+        <div id="topNumbers" class="top-numbers"></div>
+        <p class="insight-note">
+          <span id="lastDrawInfo"></span> 기준 · 역대 1등 당첨번호 중 가장 많이 나온 번호
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>*근데 당첨되면 결혼 무조건 확정!</p>
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
